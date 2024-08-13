@@ -35,17 +35,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun RecipeApp(modifier: Modifier = Modifier) {
-    // Estado para el nombre de la receta
+    // field nombre de la receta
     val recipeName = remember { mutableStateOf(TextFieldValue("")) }
 
-    // Estado para la URL de la imagen
+    // field URL imagen
     val recipeImageUrl = remember { mutableStateOf(TextFieldValue("")) }
 
-    // Estado para la lista de elementos
+    // lista de los elementos que se ingresan
     val itemList = remember { mutableStateListOf<Pair<String, String>>() }
 
     Column(modifier = modifier.padding(16.dp)) {
-        // TextField para el nombre de la receta
+        // mostrar "nombre de la receta"
         TextField(
             value = recipeName.value,
             onValueChange = { recipeName.value = it },
@@ -56,7 +56,7 @@ fun RecipeApp(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // TextField para la URL de la imagen
+        // mostrar "URL de la imagen"
         TextField(
             value = recipeImageUrl.value,
             onValueChange = { recipeImageUrl.value = it },
@@ -66,14 +66,13 @@ fun RecipeApp(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Botón para agregar el elemento a la lista
-
+        // botón que agrega los elementos
         Button(
             onClick = {
                 if (recipeName.value.text.isNotBlank() && recipeImageUrl.value.text.isNotBlank()) {
                     itemList.add(Pair(recipeName.value.text, recipeImageUrl.value.text))
-                    recipeName.value = TextFieldValue("") // Limpiar campo de texto
-                    recipeImageUrl.value = TextFieldValue("") // Limpiar campo de texto
+                    recipeName.value = TextFieldValue("") // se limpia el texto del nombre
+                    recipeImageUrl.value = TextFieldValue("") // se limpia el texto de la URL
                 }
             },
             colors = ButtonDefaults.buttonColors(
@@ -88,7 +87,7 @@ fun RecipeApp(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Mostrar la lista de elementos usando LazyColumn
+        //se muestran los elementos usando LazyColumn
         LazyColumn {
             items(itemList.size) { index ->
                 RecipeItem(
