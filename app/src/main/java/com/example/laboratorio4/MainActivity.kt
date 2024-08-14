@@ -16,7 +16,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.laboratorio4.ui.theme.Laboratorio4Theme
 import androidx.compose.ui.graphics.Color
-
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 
 
 class MainActivity : ComponentActivity() {
@@ -45,6 +46,17 @@ fun RecipeApp(modifier: Modifier = Modifier) {
     val itemList = remember { mutableStateListOf<Pair<String, String>>() }
 
     Column(modifier = modifier.padding(16.dp)) {
+
+        // título
+        Text(
+            text = "Detalles de la Receta",
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            ),
+            modifier = Modifier.fillMaxWidth()
+        )
+
         // mostrar "nombre de la receta"
         TextField(
             value = recipeName.value,
@@ -113,7 +125,7 @@ fun RecipeItem(name: String, imageUrl: String) {
             painter = rememberImagePainter(data = imageUrl),
             contentDescription = "Imagen de la receta",
             modifier = Modifier
-                .size(70.dp)
+                .size(75.dp)
                 .align(androidx.compose.ui.Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.height(8.dp))
