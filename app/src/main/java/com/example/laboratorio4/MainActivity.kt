@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import kotlinx.coroutines.launch
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,7 +123,8 @@ fun RecipeApp(modifier: Modifier = Modifier) {
             items(itemList.size) { index ->
                 RecipeItem(
                     name = itemList[index].first,
-                    imageUrl = itemList[index].second
+                    imageUrl = itemList[index].second,
+                    onDelete = { itemList.removeAt(index) } // acción para eliminar el elemento
                 )
             }
         }
@@ -135,7 +135,7 @@ fun RecipeApp(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RecipeItem(name: String, imageUrl: String) {
+fun RecipeItem(name: String, imageUrl: String, onDelete: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -151,6 +151,18 @@ fun RecipeItem(name: String, imageUrl: String) {
                 .align(androidx.compose.ui.Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.height(8.dp))
+
+        // botón para eliminar la receta 
+        Button(
+            onClick = { onDelete() },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Red,
+                contentColor = Color.White
+            ),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Eliminar")
+        }
     }
 }
 
